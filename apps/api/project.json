@@ -1,0 +1,45 @@
+{
+  "name": "api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/api",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/dist/apps/api"],
+      "options": {
+        "commands": [
+          "pnpm exec swc apps/api -d dist/apps --config-file apps/api/.swcrc --copy-files --strip-leading-paths",
+          "pnpm exec swc libs -d dist/libs --config-file .swcrc-libs --copy-files --strip-leading-paths"
+        ],
+        "parallel": false
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "pnpm exec swc apps/api -d dist/apps --config-file apps/api/.swcrc --copy-files --strip-leading-paths --watch",
+          "pnpm exec swc libs -d dist/libs --config-file .swcrc-libs --copy-files --strip-leading-paths --watch",
+          "pnpm exec nodemon --watch dist/apps/api --watch dist/libs --delay 500ms --exec \"set TS_NODE_PROJECT=tsconfig.paths.json&& node -r tsconfig-paths/register dist/apps/api/src/main.js\""
+        ],
+        "parallel": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["apps/api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/api"],
+      "options": {
+        "jestConfig": "apps/api/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["type:app"]
+}

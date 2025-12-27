@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@lib/database": ["libs/database/src"],
+      "@lib/database/*": ["libs/database/src/*"],
+
+      "@lib/common": ["libs/common/src"],
+      "@lib/common/*": ["libs/common/src/*"],
+
+      "@lib/config": ["libs/config/src"],
+      "@lib/config/*": ["libs/config/src/*"],
+
+      "@lib/constants": ["libs/constants/src"],
+      "@lib/constants/*": ["libs/constants/src/*"],
+
+      "@lib/core": ["libs/core/src"],
+      "@lib/core/*": ["libs/core/src/*"],
+
+      "@lib/frameworks": ["libs/frameworks/src"],
+      "@lib/frameworks/*": ["libs/frameworks/src/*"],
+
+      "@api": ["apps/core/src"],
+      "@api/*": ["apps/core/src/*"],
+    },
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}

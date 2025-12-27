@@ -1,0 +1,44 @@
+name: api
+
+services:
+  api:
+    image: .
+    restart: always
+    expose:
+      - 3000
+    # ports:
+    #   - 3000:3000
+    networks:
+      - default_network
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.api.rule=HOST(`192.168.2.156`)'
+      - 'traefik.http.routers.api.entrypoints=web'
+      - 'traefik.services.api.loadbalancer.server.port=3000'
+      - 'traefik.http.middlewares.v1tov2.replacepathregex.regex=^/v1/(.*)'
+      - 'traefik.http.middlewares.v1tov2.replacepathregex.replacement=/v2/$$1'
+      - 'traefik.http.routers.api.middlewares=v1tov2'
+
+
+      - 'traefik.http.routers.url-shortner.rule=Host(`shortner.localhost`)'
+      - 'traefik.http.routers.url-shortner.entrypoints=web'
+      - 'traefik.services.url-shortner.loadbalancer.server.port=3000'
+      - 'traefik.http.middlewares.shortner-path.replacepathregex.regex=^/(.*)'
+      - 'traefik.http.middlewares.shortner-path.replacepathregex.replacement=/v1/shortner/$$1'
+      - 'traefik.http.routers.url-shortner.middlewares=shortner-path'
+    environment:
+      - TZ=Asia/Tehran
+      - PORT=3000
+      - VERSION=v2
+      #
+      - INFLUXDB_CONNECTION_URL=http://influxdb:8086
+      - INFLUXDB_TOKEN=INFLUXDB_TOKEN
+      
+
+networks:
+  default_network:
+    external: true

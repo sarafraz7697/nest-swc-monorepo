@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@lib/database": ["dist/libs/database/src"],
+      "@lib/database/*": ["dist/libs/database/src/*"],
+
+      "@lib/common": ["dist/libs/common/src"],
+      "@lib/common/*": ["dist/libs/common/src/*"],
+
+      "@lib/config": ["dist/libs/config/src"],
+      "@lib/config/*": ["dist/libs/config/src/*"],
+
+      "@lib/constants": ["dist/libs/constants/src"],
+      "@lib/constants/*": ["dist/libs/constants/src/*"],
+
+      "@lib/core": ["dist/libs/core/src"],
+      "@lib/core/*": ["dist/libs/core/src/*"],
+
+      "@lib/frameworks": ["dist/libs/frameworks/src"],
+      "@lib/frameworks/*": ["dist/libs/frameworks/src/*"],
+      
+      "@api": ["dist/apps/api/src"],
+      "@api/*": ["dist/apps/api/src/*"],
+    }
+  }
+}
